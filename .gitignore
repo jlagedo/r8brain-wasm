@@ -1,0 +1,6 @@
+# Build artifacts (dist/) are intentionally committed so the package can be
+# consumed via `npm install github:...` or `npm publish` without requiring an
+# Emscripten toolchain on the consumer side. Rebuild with `npm run build`.
+.emcache/
+node_modules/
+*.tgz

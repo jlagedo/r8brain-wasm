@@ -1,0 +1,48 @@
+{
+  "name": "r8brain-wasm",
+  "version": "0.1.0",
+  "description": "r8brain-free-src high-quality sample-rate converter (by Aleksey Vaneev of Voxengo) compiled to WebAssembly for Node",
+  "type": "module",
+  "main": "src/resampler.js",
+  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./src/resampler.js"
+    },
+    "./dist/r8brain.wasm": "./dist/r8brain.wasm"
+  },
+  "scripts": {
+    "build": "bash build.sh",
+    "build:docker": "bash docker-build.sh",
+    "test": "node test/smoke.mjs",
+    "test:latency": "node test/latency.mjs",
+    "test:quality": "node test/quality.mjs",
+    "prepack": "node test/smoke.mjs"
+  },
+  "files": [
+    "src/",
+    "dist/r8brain.mjs",
+    "dist/r8brain.wasm",
+    "index.d.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "resampler",
+    "sample-rate-conversion",
+    "src",
+    "audio",
+    "dsp",
+    "wasm",
+    "webassembly",
+    "r8brain",
+    "upsample",
+    "downsample"
+  ],
+  "engines": {
+    "node": ">=16"
+  },
+  "license": "MIT",
+  "sideEffects": false
+}

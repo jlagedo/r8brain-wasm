@@ -1,0 +1,3 @@
+[submodule "vendor/r8brain-free-src"]
+	path = vendor/r8brain-free-src
+	url = https://github.com/avaneev/r8brain-free-src
