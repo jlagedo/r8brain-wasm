@@ -1,6 +1,6 @@
 {
   "name": "r8brain-wasm",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "r8brain-free-src high-quality sample-rate converter (by Aleksey Vaneev of Voxengo) compiled to WebAssembly for Node",
   "type": "module",
   "main": "src/resampler.js",
@@ -41,7 +41,7 @@
     "downsample"
   ],
   "engines": {
-    "node": ">=16"
+    "node": ">=20"
   },
   "license": "MIT",
   "sideEffects": false
