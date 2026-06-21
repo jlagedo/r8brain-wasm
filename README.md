@@ -23,10 +23,10 @@ git install — no build step on the consumer side:
 npm install r8brain-wasm
 
 # or straight from GitHub (no registry needed):
-npm install github:<your-user>/r8brain-wasm
+npm install github:jlagedo/r8brain-wasm
 
 # or a specific tag/commit:
-npm install github:<your-user>/r8brain-wasm#v0.1.0
+npm install github:jlagedo/r8brain-wasm#v0.1.0
 ```
 
 ## Build (contributors only)
@@ -35,12 +35,31 @@ Clone with the submodule, then build. The submodule supplies the r8brain C++
 headers; `dist/` is only regenerated when you change the build or bump upstream.
 
 ```bash
-git clone --recurse-submodules https://github.com/<your-user>/r8brain-wasm
+git clone --recurse-submodules https://github.com/jlagedo/r8brain-wasm
 # (already cloned without it?  git submodule update --init)
 ```
 
-Requires the [Emscripten SDK](https://emscripten.org/docs/getting_started/downloads.html)
-on PATH (`emcc --version` should work).
+### Build with Docker (recommended)
+
+The Docker build is the preferred path — it pins the exact Emscripten toolchain,
+so the output is reproducible and you don't have to install or match an emcc
+version on the host. It produces the same `dist/r8brain.mjs` + `dist/r8brain.wasm`
+as a local build:
+
+```bash
+git submodule update --init     # the build needs the vendored C++ sources
+npm run build:docker            # or: bash docker-build.sh
+```
+
+It mounts the repo at `/src`, runs as your host UID/GID so `dist/` stays owned
+by you (not root), and redirects Emscripten's cache into a git-ignored
+`./.emcache`. Only Docker is required.
+
+### Build with a local Emscripten (alternative)
+
+If you'd rather use a host toolchain, you need the
+[Emscripten SDK](https://emscripten.org/docs/getting_started/downloads.html)
+on PATH (`emcc --version` should work):
 
 ```bash
 source /path/to/emsdk/emsdk_env.sh   # activate emcc
@@ -49,9 +68,6 @@ npm test                             # smoke test (44.1k -> 96k sine)
 npm run test:latency                 # initial processing delay per rate pair
 npm run test:quality                 # SINAD of a resampled tone
 ```
-
-No local `emcc`? `npm run build:docker` runs the same build inside the official
-`emscripten/emsdk` container (no host toolchain needed).
 
 To move to a newer upstream r8brain release: `cd vendor/r8brain-free-src`,
 `git checkout <tag>`, `cd ..`, rebuild, retest, then commit the submodule
